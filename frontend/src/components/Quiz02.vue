@@ -41,28 +41,58 @@
 
       <div class="answer-form">
         <form name="answer">
-          <input class="answer-input" name="answer" id="1" type="radio" value="1">
+          <input class="answer-input" name="answer" id="1" type="radio" value="1" v-model="number">
           <label class="answer-label" for="1">1</label>
-          <input class="answer-input" name="answer" id="2" type="radio" value="2">
+          <input class="answer-input" name="answer" id="2" type="radio" value="2" v-model="number">
           <label class="answer-label" for="2">2</label>
-          <input class="answer-input" name="answer" id="3" type="radio" value="3">
+          <input class="answer-input" name="answer" id="3" type="radio" value="3" v-model="number">
           <label class="answer-label" for="3">3</label>
           <br>
-          <input class="answer-submit" type="submit" value="決定する">
+          <!-- <input class="answer-submit" type="submit" value="決定する"> -->
         </form>
       </div>
+        <button class="answer-submit" @click="postAnswer">回答する</button>
       <div class="next-button">
-        <router-link to="/2">次へ</router-link>
+        <router-link to="/result">結果を見る</router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios"
+
+export default {
+  data() {
+    return {
+      id: "2",
+      number: "",
+    }
+  },
+  methods: {
+    postAnswer() {
+      axios.post(
+        "https://firestore.googleapis.com/v1/projects/wedding-quiz-ac222/databases/(default)/documents/answers",
+        {
+          fields: {
+            id: {
+              integerValue: this.id
+            },
+            number: {
+              integerValue: this.number
+            },
+          }
+        },
+      )
+      .then(response => {
+        console.log(response)
+      })
+    }
+  },
+}
 </script>
 
-<style>
-
+<style scoped>
 .middle-img img {
   width: 200px;
   height: 250px;
