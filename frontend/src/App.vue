@@ -1,4 +1,3 @@
-
 <template>
   <div id="app">
     <router-view></router-view>
@@ -8,9 +7,6 @@
 <script>
 export default {
   name: 'App',
-  // components: {
-  //   someComponent
-  // }
 }
 </script>
 
@@ -20,10 +16,11 @@ export default {
 #app {
   font-family: 'Kosugi Maru', serif;
   background-image: url('./assets/watercolor.png');
+  text-align: center;
 }
 
 .container {
-    text-align: center;
+  /* text-align: center; */
 }
 
 .quiz-title {
