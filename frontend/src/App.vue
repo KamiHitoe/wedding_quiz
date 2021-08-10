@@ -13,7 +13,7 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css?family=Kosugi+Maru');
 @import url('https://fonts.googleapis.com/css?family=Poppins');
-#app {
+body {
   font-family: 'Kosugi Maru', serif;
   background-image: url('./assets/watercolor.png');
   text-align: center;
@@ -38,7 +38,6 @@ export default {
 
 .quiz-selection {
   background-color: #F6DCED;
-  /* border: solid 3px #DE2F57; */
   border: solid 3px palevioletred;
   border-radius: 30%;
   padding: 30px;
@@ -63,7 +62,6 @@ export default {
 .answer-label {
   display: inline-block;
   background-color: #fff;
-  /* border: solid 2px orchid; */
   border: solid 2px #599159;
   border-radius: 100%;
   font-size: 50px;
@@ -73,7 +71,6 @@ export default {
 }
 
 .answer-input:checked + .answer-label {
-  /* background: #F4BAF5; */
   background: #B4DEB4;
   color: #fff;
   text-shadow: 0 0 1px rgba(0,0,0,.7);
@@ -97,15 +94,8 @@ export default {
 }
 
 .next-button {
-  margin: 50px;
-  padding: 20px 40px;
-  color: #fff;
-  background-color: #fff;
-  border: none;
-  border-radius: 10%;
-  font-size: 30px;
-  /* width: 200px;
-  height: auto; */
+  /* margin: 50px; */
 }
+
 
 </style>

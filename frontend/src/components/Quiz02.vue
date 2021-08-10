@@ -51,9 +51,10 @@
           <!-- <input class="answer-submit" type="submit" value="決定する"> -->
         </form>
       </div>
-        <button class="answer-submit" @click="postAnswer">回答する</button>
       <div class="next-button">
-        <router-link to="/result">結果を見る</router-link>
+        <router-link to="/result">
+          <button class="answer-submit" @click="postAnswer">回答して次へ</button>
+        </router-link>
       </div>
     </div>
   </div>
