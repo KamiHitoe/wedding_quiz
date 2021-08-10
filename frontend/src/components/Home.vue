@@ -8,7 +8,9 @@
       <label for="name">ユーザネーム：</label>
       <input id="name" type="text" v-model="name">
     <div class="next-button">
-      <router-link to="/1">はじめる</router-link>
+      <router-link to="/1">
+        <button class="answer-submit">はじめる</button>
+      </router-link>
     </div>
   </div>
 </template>

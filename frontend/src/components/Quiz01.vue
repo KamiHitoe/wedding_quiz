@@ -29,9 +29,10 @@
           <!-- <input class="answer-submit" type="submit" value="決定する"> -->
         </form>
       </div>
-        <button class="answer-submit" @click="postAnswer">回答する</button>
       <div class="next-button">
-        <router-link to="/2" @click="postAnswer">次へ</router-link>
+        <router-link to="/2" @click="postAnswer">
+          <button class="answer-submit" @click="postAnswer">回答して次へ</button>
+        </router-link>
       </div>
     </div>
   </div>
