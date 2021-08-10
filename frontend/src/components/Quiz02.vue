@@ -2,7 +2,7 @@
   <div>
     <div class="container">
       <div class="quiz-title">
-        <h2>Q2. 新郎が持っていないフィギュアは？</h2>
+        <h2>Q2. 新郎が持っていない<br>フィギュアは？</h2>
       </div>
       <div class="flex-container">
         <div class="flex-item1">
@@ -10,7 +10,7 @@
             <img src="../assets/wedding_quiz02.jpg">
           </div>
           <div class="quiz-selection">
-            <h3>「新世紀エヴァンゲリオン」</h3>
+            <h3>1. 「新世紀エヴァンゲリオン」</h3>
             <br>
             <h3>惣流・アスカ・ラングレー</h3>
           </div>
@@ -20,7 +20,7 @@
             <img src="../assets/wedding_quiz03.jpg">
           </div>
           <div class="quiz-selection">
-            <h3>「涼宮ハルヒの憂鬱」</h3>
+            <h3>2. 「涼宮ハルヒの憂鬱」</h3>
             <br>
             <h3>涼宮ハルヒ</h3>
           </div>
@@ -30,7 +30,7 @@
             <img src="../assets/wedding_quiz04.jpg">
           </div>
           <div class="quiz-selection">
-            <h3>「アイカツ！」</h3>
+            <h3>3. 「アイカツ！」</h3>
             <br>
             <h3>星宮いちご</h3>
           </div>
@@ -48,17 +48,23 @@
           <input class="answer-input" name="answer" id="3" type="radio" value="3" v-model="number">
           <label class="answer-label" for="3">3</label>
           <br>
-          <!-- <input class="answer-submit" type="submit" value="決定する"> -->
         </form>
       </div>
+      
+      <div class="validate" v-if="error">
+      <p>{{error}}</p>
+      </div>
+      
       <div class="next-button">
         <router-link to="/result">
-          <button class="answer-submit" @click="postAnswer">回答して次へ</button>
+          <button class="answer-submit" @click="postAnswer" v-if="number">回答して<br>次へ</button>
+          <button class="answer-submit" @click="checkForm" v-else>回答して<br>次へ</button>
         </router-link>
       </div>
     </div>
   </div>
 </template>
+
 
 <script>
 import axios from "axios"
@@ -67,7 +73,8 @@ export default {
   data() {
     return {
       id: "2",
-      number: "",
+      number: null,
+      error: null,
     }
   },
   methods: {
@@ -82,16 +89,31 @@ export default {
             number: {
               integerValue: this.number
             },
+            username: {
+              stringValue: this.$store.state.username
+            },
           }
         },
       )
       .then(response => {
         console.log(response)
       })
-    }
+    },
+    checkForm: function(e) {
+      if (this.username) {
+        return true;
+      }
+
+      if (!this.username) {
+        this.error = '回答を選択してください';
+      }
+
+      e.preventDefault();
+    },
   },
 }
 </script>
+
 
 <style scoped>
 .middle-img img {

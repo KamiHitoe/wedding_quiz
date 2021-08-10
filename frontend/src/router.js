@@ -1,12 +1,12 @@
-
 // import components
-import Vue from "vue";
-import Router from "vue-router";
+import Vue from "vue"
+import Router from "vue-router"
 import Home from "./components/Home.vue"
 import Quiz01 from "./components/Quiz01.vue"
 import Quiz02 from "./components/Quiz02.vue"
 import Result from "./components/Result.vue"
 
+// Pluginを全体で使用
 Vue.use(Router);
 
 export default

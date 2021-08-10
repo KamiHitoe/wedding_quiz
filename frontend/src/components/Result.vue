@@ -16,7 +16,7 @@
     </div>
 
     <button @click="sort(); grade()">採点する</button>
-    <h2>あなたの点数は {{correct_num}} / {{correct_answers.length}} です</h2>
+    <h2>{{this.$store.state.username}}さんの点数は {{correct_num}} / {{correct_answers.length}} です</h2>
 
     <div class="next-button">
       <router-link to="/">
@@ -25,6 +25,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import axios from "axios"

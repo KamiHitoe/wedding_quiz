@@ -2,7 +2,7 @@
   <div>
     <div class="container">
       <div class="quiz-title">
-        <h2>Q1. 新婦が飼っているこのうさぎの名前は？</h2>
+        <h2>Q1. 新婦が飼っている<br>このうさぎの名前は？</h2>
       </div>
       <div class="flex-container">
         <div class="learge-img">
@@ -26,17 +26,23 @@
           <input class="answer-input" name="answer" id="3" type="radio" value="3" v-model="number">
           <label class="answer-label" for="3">3</label>
           <br>
-          <!-- <input class="answer-submit" type="submit" value="決定する"> -->
         </form>
       </div>
+
+      <div class="validate" v-if="error">
+      <p>{{error}}</p>
+      </div>
+
       <div class="next-button">
-        <router-link to="/2" @click="postAnswer">
-          <button class="answer-submit" @click="postAnswer">回答して次へ</button>
+        <router-link to="/2">
+          <button class="answer-submit" @click="postAnswer" v-if="number">回答して<br>次へ</button>
+          <button class="answer-submit" @click="checkForm" v-else>回答して<br>次へ</button>
         </router-link>
       </div>
     </div>
   </div>
 </template>
+
 
 <script>
 import axios from "axios"
@@ -45,7 +51,8 @@ export default {
   data() {
     return {
       id: "1",
-      number: "",
+      number: null,
+      error: null,
     }
   },
   methods: {
@@ -60,16 +67,31 @@ export default {
             number: {
               integerValue: this.number
             },
+            username: {
+              stringValue: this.$store.state.username
+            },
           }
         },
       )
       .then(response => {
         console.log(response)
       })
-    }
+    },
+    checkForm: function(e) {
+      if (this.username) {
+        return true;
+      }
+
+      if (!this.username) {
+        this.error = '回答を選択してください';
+      }
+
+      e.preventDefault();
+    },
   },
 }
 </script>
+
 
 <style scoped>
 .learge-img img {

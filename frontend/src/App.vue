@@ -36,6 +36,12 @@ body {
   justify-content: center;
 }
 
+@media (max-width: 600px) {
+  .flex-container {
+    flex-direction: column;
+  }
+}
+
 .quiz-selection {
   background-color: #F6DCED;
   border: solid 3px palevioletred;
@@ -52,6 +58,12 @@ body {
 
 .answer-form {
   margin-top: 100px;
+}
+
+@media (max-width: 600px) {
+  .answer-form {
+    flex-direction: column;
+  }
 }
 
 .answer-input {
@@ -93,9 +105,9 @@ body {
   font-size: 40px;
 }
 
-.next-button {
-  /* margin: 50px; */
+.validate {
+  color: #e44f32;
+  font-weight: bold;
 }
-
 
 </style>

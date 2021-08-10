@@ -5,15 +5,53 @@
         <h1>Wedding Quiz</h1>
       </div>
     </div>
-      <label for="name">ユーザネーム：</label>
-      <input id="name" type="text" v-model="name">
+    <label for="username">ユーザネーム：</label>
+    <input id="username" type="text" v-model="username">
+    <div class="validate" v-if="error">
+      <p>{{error}}</p>
+    </div>
     <div class="next-button">
       <router-link to="/1">
-        <button class="answer-submit">はじめる</button>
+        <button class="answer-submit" @click="postUserName" v-if="username">はじめる</button>
+        <button class="answer-submit" @click="checkForm" v-else>はじめる</button>
       </router-link>
     </div>
   </div>
 </template>
+
+
+<script>
+export default {
+  data() {
+    return {
+      username: null,
+      error: null,
+    }
+  },
+  methods: {
+    postUserName() {
+      this.$store.state.username = this.username
+    },
+    checkForm: function(e) {
+      if (this.username) {
+        return true;
+      }
+
+      if (!this.username) {
+        this.error = 'ユーザネームを入力してください';
+      }
+
+      e.preventDefault();
+    },
+  },
+  computed: {
+    user() {
+      return this.$store.state.username
+    }
+  },
+}
+</script>
+
 
 <style scoped>
 #title {
