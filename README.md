@@ -5,6 +5,7 @@
 - frontend
     - 11ページ分の静的ページの表示
     - ユーザから回答のPOSTリクエスト
+    - Bootstrapでデコる
 
 - backend
     - firestoreへのAPIによるget/post
@@ -17,6 +18,7 @@
 ## 利用技術
 - frontend
     - Vue.js
+    - Bootstrap
 - backend/infra
     - Firestore
     - Firebase

@@ -24,15 +24,11 @@
       </router-link>
     </div>
   </div>
-
-  <!-- firebase practice -->
 </template>
 
 
 <script>
-// import axios from "axios"
-import firebase from 'firebase/app'
-import "firebase/firestore"
+import axios from "axios"
 
 export default {
   data() {
@@ -42,39 +38,20 @@ export default {
       sorted_correct_answers: [],
       sorted_answers: [],
       correct_num: 0,
-      firebaseConfig: {
-        apiKey: "AIzaSyDARhMfvyH4J1QqileKbx-AAHcpLqnSiQo",
-        authDomain: "wedding-quiz-ac222.firebaseapp.com",
-        projectId: "wedding-quiz-ac222",
-        storageBucket: "wedding-quiz-ac222.appspot.com",
-        messagingSenderId: "576888249109",
-        appId: "1:576888249109:web:bc53f7aead1618a5c4e71c",
-      },
-      db: firebase.firestore(),
-      collection: this.db.collection('messages'),
     }
   },
   created() {
-    // axios.get(
-    //   "https://firestore.googleapis.com/v1/projects/wedding-quiz-ac222/databases/(default)/documents/correct_answers"
-    // )
-    // .then(response => {
-    //   this.correct_answers = response.data.documents
-    // }),
-    // axios.get(
-    //   "https://firestore.googleapis.com/v1/projects/wedding-quiz-ac222/databases/(default)/documents/answers"
-    // )
-    // .then(response => {
-    //   this.answers = response.data.documents
-    // }),
-    // Initialize Firebase
-    firebase.initializeApp(this.firebaseConfig),
-    this.collection.get().then(snapshot => {
-      snapshot.forEach(doc => {
-        let li = document.createElement('li');
-        li.textContent = doc.data().message;
-        console.log(doc);
-      });
+    axios.get(
+      "https://firestore.googleapis.com/v1/projects/wedding-quiz-ac222/databases/(default)/documents/correct_answers"
+    )
+    .then(response => {
+      this.correct_answers = response.data.documents
+    }),
+    axios.get(
+      "https://firestore.googleapis.com/v1/projects/wedding-quiz-ac222/databases/(default)/documents/answers"
+    )
+    .then(response => {
+      this.answers = response.data.documents
     })
   },
   methods: {
@@ -102,7 +79,6 @@ export default {
       console.log(this.sorted_correct_answers)
     },
   }
-
 
 }
 
