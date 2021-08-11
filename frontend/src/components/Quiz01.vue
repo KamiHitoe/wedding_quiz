@@ -18,7 +18,7 @@
       </div>
 
       <div class="answer-form">
-        <form name="answer">
+        <form name="answer" class="answer-form">
           <input class="answer-input" name="answer" id="1" type="radio" value="1" v-model="number">
           <label class="answer-label1" for="1">1</label>
           <input class="answer-input" name="answer" id="2" type="radio" value="2" v-model="number">
@@ -45,28 +45,23 @@
 
 
 <script>
-import firebase from '../firebase'
-
 export default {
   data() {
     return {
-      id: "1",
       number: null,
       error: null,
-      db: null,
-      collection: null,
     }
   },
   methods: {
     postAnswer() {
-      this.db = firebase.firestore();
-      this.collection = this.db.collection('answers');
-
-      this.collection.add({
-        id: this.id,
-        number: this.number,
-        username: this.$store.state.username,
-      })
+      if (!this.$store.state.username) {
+        window.location.href = '/';
+      }
+      if (this.$store.state.answerArray.length > 0) {
+        this.$store.state.answerArray.splice(0, 1, this.number);
+      } else {
+        this.$store.state.answerArray.splice(0, 0, this.number);
+      }
     },
     checkForm: function(e) {
       if (this.username) {

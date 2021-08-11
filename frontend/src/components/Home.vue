@@ -5,8 +5,10 @@
         <h1>Wedding Quiz</h1>
       </div>
     </div>
-    <label for="username">ユーザネーム：</label>
-    <input id="username" type="text" v-model="username">
+    <div id="username-form">
+      <label for="username">ユーザネーム：</label>
+      <input id="username" type="text" v-model="username">
+    </div>
     <div class="validate" v-if="error">
       <p>{{error}}</p>
     </div>
@@ -81,6 +83,10 @@ export default {
   font-family: 'Poppins', serif;
   display: table-cell;
   vertical-align: middle;
+}
+
+#username-form {
+  margin-top: 50px;
 }
 
 </style>

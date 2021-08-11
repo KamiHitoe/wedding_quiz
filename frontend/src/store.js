@@ -7,7 +7,7 @@ Vue.use(Vuex)
 export default
 new Vuex.Store({
   state: {
-    count: 2,
     username: "",
+    answerArray: [],
   }
 })
