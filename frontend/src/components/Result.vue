@@ -5,17 +5,8 @@
         <h1>結果発表</h1>
       </div>
     </div>
-    <div class="correct_answers" v-for="correct_answer in sorted_correct_answers" :key="correct_answer.name">
-      <div>id: {{ correct_answer.fields.id.integerValue }}</div>
-      <div>correct_answer_num: {{ correct_answer.fields.number.integerValue }}</div>
-    </div>
-    <br>
-    <div class="answers" v-for="answer in sorted_answers" :key="answer.name">
-      <div>id: {{ answer.fields.id.integerValue }}</div>
-      <div>answer_num: {{ answer.fields.number.integerValue }}</div>
-    </div>
 
-    <button @click="sort(); grade()">採点する</button>
+    <button @click="getDocuments">採点する</button>
     <h2>{{this.$store.state.username}}さんの点数は {{correct_num}} / {{correct_answers.length}} です</h2>
 
     <div class="next-button">
@@ -25,83 +16,62 @@
     </div>
   </div>
 
-  <!-- firebase practice -->
 </template>
 
 
 <script>
-// import axios from "axios"
-import firebase from 'firebase/app'
-import "firebase/firestore"
+import firebase from '../firebase'
 
 export default {
   data() {
     return {
-      correct_answers: [],
+      correct_answers: [2, 1],
       answers: [],
-      sorted_correct_answers: [],
-      sorted_answers: [],
       correct_num: 0,
-      firebaseConfig: {
-        apiKey: "AIzaSyDARhMfvyH4J1QqileKbx-AAHcpLqnSiQo",
-        authDomain: "wedding-quiz-ac222.firebaseapp.com",
-        projectId: "wedding-quiz-ac222",
-        storageBucket: "wedding-quiz-ac222.appspot.com",
-        messagingSenderId: "576888249109",
-        appId: "1:576888249109:web:bc53f7aead1618a5c4e71c",
-      },
-      db: firebase.firestore(),
-      collection: this.db.collection('messages'),
+      db: null,
+      answers_collection: null,
+      scores_collection: null,
     }
   },
   created() {
-    // axios.get(
-    //   "https://firestore.googleapis.com/v1/projects/wedding-quiz-ac222/databases/(default)/documents/correct_answers"
-    // )
-    // .then(response => {
-    //   this.correct_answers = response.data.documents
-    // }),
-    // axios.get(
-    //   "https://firestore.googleapis.com/v1/projects/wedding-quiz-ac222/databases/(default)/documents/answers"
-    // )
-    // .then(response => {
-    //   this.answers = response.data.documents
-    // }),
-    // Initialize Firebase
-    firebase.initializeApp(this.firebaseConfig),
-    this.collection.get().then(snapshot => {
-      snapshot.forEach(doc => {
-        let li = document.createElement('li');
-        li.textContent = doc.data().message;
-        console.log(doc);
-      });
-    })
+    this.db = firebase.firestore();
+    this.answers_collection = this.db.collection('answers');
+    this.scores_collection = this.db.collection('scores');
   },
   methods: {
-    sort() {
-      for (let i = 1; i < this.correct_answers.length+1; i++) {
-        for (let j = 0; j < this.correct_answers.length; j++) {
-          // correct_answersの整序
-          if (this.correct_answers[j].fields.id.integerValue == i) {
-            this.sorted_correct_answers.push(this.correct_answers[j])
-          }
-          // answersの整序
-          if (this.answers[j].fields.id.integerValue == i) {
-            this.sorted_answers.push(this.answers[j])
+    getDocuments() {
+      this.answers_collection.where('username', '==', this.$store.state.username)
+      .orderBy('id').get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          console.log(doc.data().id);
+          console.log(doc.data().number);
+          console.log(doc.data().username);
+          // this.answers.push(doc.data().number);
+          let parse_number = parseInt(JSON.parse(JSON.stringify(doc.data().number))); 
+          this.answers.push(parse_number);
+        })
+      })
+      .then(() => {
+        this.correct_num = 0;
+        for (let i=0; i < this.correct_answers.length; i++) {
+          if (this.answers[i] == this.correct_answers[i]) {
+            this.correct_num += 1;
           }
         }
-      }
-      console.log(this.sorted_correct_answers)
+        console.log(this.correct_num);
+      })
+      .then(() => {
+        this.scores_collection.add({
+          score: this.correct_num,
+          username: this.$store.state.username,
+        })
+        .then(doc => {
+          console.log(doc)
+        })
+      })
     },
-    grade() {
-      for (let k = 0; k < this.sorted_correct_answers.length; k++) {
-        if (this.sorted_correct_answers[k].fields.number.integerValue == this.sorted_answers[k].fields.number.integerValue) {
-          this.correct_num += 1
-        }
-      }
-      console.log(this.sorted_correct_answers)
-    },
-  }
+  },
 
 
 }

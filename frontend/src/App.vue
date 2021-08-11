@@ -73,15 +73,43 @@ body {
   clip: rect(1px, 1px, 1px, 1px);
 }
 
-.answer-label {
+.answer-label1 {
+  /* border: solid 2px #599159; */
+  /* border-radius: 100%; */
+  /* transition: all .2s; */
   display: inline-block;
-  background-color: #fff;
-  border: solid 2px #599159;
-  border-radius: 100%;
+  color: #fff;
+  background-color: #82D9A6;
+  width: 200px;
   font-size: 50px;
   padding: 50px;
-  margin: 0px 30px;
-  transition: all .2s;
+  margin: 30px;
+}
+
+.answer-label2 {
+  /* border: solid 2px #599159; */
+  /* border-radius: 100%; */
+  /* transition: all .2s; */
+  display: inline-block;
+  color: #fff;
+  background-color: #D96A62;
+  width: 200px;
+  font-size: 50px;
+  padding: 50px;
+  margin: 30px;
+}
+
+.answer-label3 {
+  /* border: solid 2px #599159; */
+  /* border-radius: 100%; */
+  /* transition: all .2s; */
+  display: inline-block;
+  color: #fff;
+  background-color: #5C57D9;
+  width: 200px;
+  font-size: 50px;
+  padding: 50px;
+  margin: 30px;
 }
 
 .answer-input:checked + .answer-label {

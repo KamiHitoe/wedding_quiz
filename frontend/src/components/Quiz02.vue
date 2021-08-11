@@ -41,11 +41,11 @@
       <div class="answer-form">
         <form name="answer">
           <input class="answer-input" name="answer" id="1" type="radio" value="1" v-model="number">
-          <label class="answer-label" for="1">1</label>
+          <label class="answer-label1" for="1">1</label>
           <input class="answer-input" name="answer" id="2" type="radio" value="2" v-model="number">
-          <label class="answer-label" for="2">2</label>
+          <label class="answer-label2" for="2">2</label>
           <input class="answer-input" name="answer" id="3" type="radio" value="3" v-model="number">
-          <label class="answer-label" for="3">3</label>
+          <label class="answer-label3" for="3">3</label>
           <br>
         </form>
       </div>
@@ -66,7 +66,7 @@
 
 
 <script>
-import axios from "axios"
+import firebase from '../firebase'
 
 export default {
   data() {
@@ -74,28 +74,19 @@ export default {
       id: "2",
       number: null,
       error: null,
+      db: null,
+      collection: null,
     }
   },
   methods: {
     postAnswer() {
-      axios.post(
-        "https://firestore.googleapis.com/v1/projects/wedding-quiz-ac222/databases/(default)/documents/answers",
-        {
-          fields: {
-            id: {
-              integerValue: this.id
-            },
-            number: {
-              integerValue: this.number
-            },
-            username: {
-              stringValue: this.$store.state.username
-            },
-          }
-        },
-      )
-      .then(response => {
-        console.log(response)
+      this.db = firebase.firestore();
+      this.collection = this.db.collection('answers');
+
+      this.collection.add({
+        id: this.id,
+        number: this.number,
+        username: this.$store.state.username,
       })
     },
     checkForm: function(e) {
