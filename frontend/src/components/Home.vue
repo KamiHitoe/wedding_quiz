@@ -21,6 +21,8 @@
 
 
 <script>
+import axios from "axios"
+
 export default {
   data() {
     return {
@@ -31,6 +33,20 @@ export default {
   methods: {
     postUserName() {
       this.$store.state.username = this.username
+
+      axios.post(
+        "https://firestore.googleapis.com/v1/projects/wedding-quiz-ac222/databases/(default)/documents/users",
+        {
+          fields: {
+            username: {
+              stringValue: this.username
+            },
+          }
+        },
+      )
+      .then(response => {
+        console.log(response)
+      })
     },
     checkForm: function(e) {
       if (this.username) {

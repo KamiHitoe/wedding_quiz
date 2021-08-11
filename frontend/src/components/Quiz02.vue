@@ -36,7 +36,6 @@
           </div>
         </div>
         
-
       </div>
 
       <div class="answer-form">
