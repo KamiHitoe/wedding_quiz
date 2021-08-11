@@ -10,7 +10,7 @@
     <h2>{{this.$store.state.username}}さんの点数は {{correct_num}} / {{correct_answers.length}} です</h2>
 
     <div class="next-button">
-      <router-link to="/">
+      <router-link to="/ranking">
       <button class="answer-submit">はじめに戻る</button>
       </router-link>
     </div>
