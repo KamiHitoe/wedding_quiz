@@ -11,7 +11,7 @@
 
     <div class="next-button">
       <router-link to="/ranking">
-      <button class="answer-submit">はじめに戻る</button>
+      <button class="answer-submit">ランキングを見る</button>
       </router-link>
     </div>
   </div>
