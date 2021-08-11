@@ -6,7 +6,7 @@
       </div>
     </div>
 
-    <button @click="getDocuments">採点する</button>
+    <button id="grade-button" @click="postScore">採点する</button>
     <h2>{{this.$store.state.username}}さんの点数は {{correct_num}} / {{correct_answers.length}} です</h2>
 
     <div class="next-button">
@@ -25,8 +25,7 @@ import firebase from '../firebase'
 export default {
   data() {
     return {
-      correct_answers: [2, 1],
-      answers: [],
+      correct_answers: [2, 1, 2, 3, 3, 2, 1, 3, 2, 3],
       correct_num: 0,
       db: null,
       answers_collection: null,
@@ -39,23 +38,26 @@ export default {
     this.scores_collection = this.db.collection('scores');
   },
   methods: {
-    getDocuments() {
-      this.answers_collection.where('username', '==', this.$store.state.username)
-      .orderBy('id').get()
-      .then(snapshot => {
-        snapshot.forEach(doc => {
-          console.log(doc.data().id);
-          console.log(doc.data().number);
-          console.log(doc.data().username);
-          // this.answers.push(doc.data().number);
-          let parse_number = parseInt(JSON.parse(JSON.stringify(doc.data().number))); 
-          this.answers.push(parse_number);
-        })
+    postScore() {
+      // this.answers_collection.where('username', '==', this.$store.state.username)
+      // .orderBy('id').get()
+      // .then(snapshot => {
+      //   snapshot.forEach(doc => {
+      //     console.log(doc.data().id);
+      //     console.log(doc.data().number);
+      //     console.log(doc.data().username);
+      //     let parse_number = parseInt(JSON.parse(JSON.stringify(doc.data().number))); 
+      //     this.answers.push(parse_number);
+      //   })
+      // })
+      this.answers_collection.add({
+        answerArray: this.$store.state.answerArray,
+        username: this.$store.state.username,
       })
       .then(() => {
         this.correct_num = 0;
         for (let i=0; i < this.correct_answers.length; i++) {
-          if (this.answers[i] == this.correct_answers[i]) {
+          if (this.$store.state.answerArray[i] == this.correct_answers[i]) {
             this.correct_num += 1;
           }
         }
@@ -70,6 +72,8 @@ export default {
           console.log(doc)
         })
       })
+      let element = document.getElementById('grade-button');
+      element.remove();
     },
   },
 
