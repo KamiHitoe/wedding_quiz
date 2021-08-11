@@ -3,9 +3,13 @@
     <div class="flex-container">
       <div id="title">
         <h1>ランキング</h1>
-        <h2>🥇1位 {{username_array[0]}} さん：{{score_array[0]}}点</h2>
-        <h2>🥈2位 {{username_array[1]}} さん：{{score_array[1]}}点</h2>
-        <h2>🥉3位 {{username_array[2]}} さん：{{score_array[2]}}点</h2>
+        <div v-for="(username, i) in username_array" :key="username">
+          <h2>
+            <span v-if="i+1==1">🥇</span>
+            <span v-if="i+1==2">🥈</span>
+            <span v-if="i+1==3">🥉</span>
+          {{i+1}}位 {{username_array[i]}} さん：{{score_array[i]}}点</h2>
+        </div>
       </div>
     </div>
 
@@ -34,7 +38,7 @@ export default {
   methods: {
     getScores() {
       this.collection
-      .orderBy('score', 'desc').limit(3).get()
+      .orderBy('score', 'desc').get()
       .then(snapshot => {
         snapshot.forEach(doc => {
           console.log(doc.data().score);
