@@ -21,31 +21,28 @@
 
 
 <script>
-import axios from "axios"
+import firebase from '../firebase'
 
 export default {
   data() {
     return {
       username: null,
       error: null,
+      db: null,
+      collection: null,
     }
   },
   methods: {
     postUserName() {
-      this.$store.state.username = this.username
+      this.$store.state.username = this.username;
+      this.db = firebase.firestore();
+      this.collection = this.db.collection('users');
 
-      axios.post(
-        "https://firestore.googleapis.com/v1/projects/wedding-quiz-ac222/databases/(default)/documents/users",
-        {
-          fields: {
-            username: {
-              stringValue: this.username
-            },
-          }
-        },
-      )
-      .then(response => {
-        console.log(response)
+      this.collection.add({
+        username: this.username
+      })
+      .then(doc => {
+        console.log(doc);
       })
     },
     checkForm: function(e) {
