@@ -6,12 +6,12 @@
       </div>
     </div>
 
-    <button id="grade-button" @click="postScore">採点する</button>
-    <h2>{{this.$store.state.username}}さんの点数は {{correct_num}} / {{correct_answers.length}} です</h2>
+    <button class="answer-submit" id="grade-button" @click="postScore">採点する</button>
 
-    <div class="next-button">
+    <div class="disappear" id="target">
+      <h2>{{this.$store.state.username}}さんの点数は<br>{{correct_num}} / {{correct_answers.length}} です</h2>
       <router-link to="/ranking">
-      <button class="answer-submit">はじめに戻る</button>
+      <button class="answer-submit">ランキング<br>を見る</button>
       </router-link>
     </div>
   </div>
@@ -74,6 +74,8 @@ export default {
       })
       let element = document.getElementById('grade-button');
       element.remove();
+      let target = document.getElementById('target');
+      target.className = 'appear';
     },
   },
 
@@ -84,4 +86,7 @@ export default {
 
 
 <style scoped>
+.disappear {
+  display: none;
+}
 </style>
