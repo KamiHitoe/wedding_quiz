@@ -142,10 +142,10 @@ body {
   margin: 50px;
   padding: 20px 40px;
   color: #fff;
-  background-color: palevioletred;
+  background-color: #f55e61;
   border: none;
-  border-radius: 10%;
-  font-size: 40px;
+  border-radius: 100vh;
+  font-size: 30px;
 }
 
 .validate {
