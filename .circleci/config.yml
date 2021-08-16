@@ -24,8 +24,8 @@ jobs:
             npm install
             curl -sL https://firebase.tools | bash
             npm list --depth=0
-            ls ./
-            ls ../
+            ls -la ./
+            ls -la ../
             pwd
             npm run build
           # buildするpathの指定
