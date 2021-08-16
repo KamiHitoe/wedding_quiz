@@ -53,7 +53,7 @@ jobs:
           command: |
             npm install
             curl -sL https://firebase.tools | bash
-            firebase deploy --only hosting --project "${FIREBASE_PROJECT_ID}" --token "${FIREBASE_TOKEN}"
+            ./node_modules/.bin/firebase deploy --only hosting --project "${FIREBASE_PROJECT_ID}" --token "${FIREBASE_TOKEN}"
           working_directory: frontend
 
 workflows:

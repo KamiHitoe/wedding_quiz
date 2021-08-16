@@ -3,7 +3,7 @@ node_modules
 /dist
 
 # custom area
-firebase.js
+# firebase.js
 config.json
 
 # local env files
