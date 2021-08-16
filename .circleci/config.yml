@@ -22,7 +22,7 @@ jobs:
           name: install and build
           command: |
             npm install
-            npm install -g firebase-tools
+            curl -sL https://firebase.tools | bash
             npm list --depth=0
             npm run build
           # buildするpathの指定
