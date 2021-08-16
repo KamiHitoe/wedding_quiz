@@ -8,6 +8,7 @@ jobs:
         environment:
           LANG: ja_JP.UTF-8
           TZ: Asia/Tokyo
+          NODE_ENV: development
     steps:
       # ソースコードをwork directoryにgit checkout
       - checkout
@@ -36,6 +37,7 @@ jobs:
         environment:
           LANG: ja_JP.UTF-8
           TZ: Asia/Tokyo
+          NODE_ENV: development
     steps:
       - checkout
       - restore_cache:
