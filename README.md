@@ -23,4 +23,5 @@
 - infra
     - firebaseによる静的ページのホスティング
 
-
+- DevOps
+    - CircleCIで自動デプロイ
