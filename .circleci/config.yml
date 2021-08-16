@@ -8,6 +8,8 @@ jobs:
         environment:
           LANG: ja_JP.UTF-8
           TZ: Asia/Tokyo
+          NODE_ENV: development
+          NODE_PATH: frontend
     steps:
       # ソースコードをwork directoryにgit checkout
       - checkout
@@ -20,6 +22,11 @@ jobs:
           name: install and build
           command: |
             npm install
+            curl -sL https://firebase.tools | bash
+            npm list --depth=0
+            ls -la ./
+            ls -la ../
+            pwd
             npm run build
           # buildするpathの指定
           working_directory: frontend
@@ -36,6 +43,8 @@ jobs:
         environment:
           LANG: ja_JP.UTF-8
           TZ: Asia/Tokyo
+          NODE_ENV: development
+          NODE_PATH: frontend
     steps:
       - checkout
       - restore_cache:
