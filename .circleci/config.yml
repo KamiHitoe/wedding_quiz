@@ -1,0 +1,54 @@
+
+version: 2
+jobs: 
+  build: 
+    working_directory: ~/app
+    docker:
+      - image: circleci/node:10
+        environment:
+          LANG: ja_JP.UTF-8
+          TZ: Asia/Tokyo
+    steps:
+      # ソースコードをwork directoryにgit checkout
+      - checkout
+      - run:
+          name: install and build
+          command: |
+            npm install
+            npm build
+      - persist_to_workspace:
+          # root pathの永続化 = 共有
+          root: .
+          paths:
+            - . # rootからの相対パス
+
+  deploy:
+    working_directory: ~/app
+    docker:
+      - image: circleci/node:10
+        environment:
+          LANG: ja_JP.UTF-8
+          TZ: Asia/Tokyo
+    steps:
+      # persist_to_workspaceで永続化したdirectoryを利用
+      - attach_workspace:
+          at: .
+      - run:
+          name: deploy firebase hosting
+          command: |
+            npm install
+            ./node_modules/.bin/firebase deploy --only hosting --project "${FIREBASE_PROJECT_ID}" --token "${FIREBASE_TOKEN}"
+
+workflows:
+  version: 2
+  build_deploy:
+    jobs:
+      - build
+      - deploy:
+        # buildが成功したら実行
+        requires:
+          - build
+        # master branchにpushされた時のみ実行
+        filters:
+          branches:
+            only: master

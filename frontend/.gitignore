@@ -4,6 +4,7 @@ node_modules
 
 # custom area
 firebase.js
+config.json
 
 # local env files
 .env.local
