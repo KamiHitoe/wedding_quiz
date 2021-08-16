@@ -21,9 +21,8 @@ jobs:
       - run:
           name: install and build
           command: |
-            npm i -g npm-check-updates
-            npm-check-updates -u
             npm install
+            npm list --depth=0
             npm run build
           # buildするpathの指定
           working_directory: frontend
@@ -52,8 +51,6 @@ jobs:
       - run:
           name: deploy firebase hosting
           command: |
-            npm i -g npm-check-updates
-            npm-check-updates -u
             npm install
             ./node_modules/.bin/firebase deploy --only hosting --project "${FIREBASE_PROJECT_ID}" --token "${FIREBASE_TOKEN}"
           working_directory: frontend
