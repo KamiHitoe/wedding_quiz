@@ -24,6 +24,9 @@ jobs:
             npm install
             curl -sL https://firebase.tools | bash
             npm list --depth=0
+            ls ./
+            ls ../
+            pwd
             npm run build
           # buildするpathの指定
           working_directory: frontend
