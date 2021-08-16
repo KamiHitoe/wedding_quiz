@@ -45,10 +45,11 @@ workflows:
     jobs:
       - build
       - deploy:
-        # buildが成功したら実行
-        requires:
-          - build
-        # master branchにpushされた時のみ実行
-        filters:
-          branches:
-            only: master
+          # なぜかインデントが2レベルいる　※注意
+          # buildが成功したら実行
+          requires:
+            - build
+          # master branchにpushされた時のみ実行
+          filters:
+            branches:
+              only: master
