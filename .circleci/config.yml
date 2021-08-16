@@ -23,7 +23,6 @@ jobs:
           command: |
             npm install
             npm list --depth=0
-            rm -r .firebase
             npm run build
           # buildするpathの指定
           working_directory: frontend
