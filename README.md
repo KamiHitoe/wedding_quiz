@@ -1,5 +1,6 @@
 # wedding_quiz
 
+![インフラ構成図](https://github.com/KamiHitoe/wedding_quiz/blob/master/infra.png)
 
 ## 利用技術
 - frontend
