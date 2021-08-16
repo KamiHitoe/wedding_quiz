@@ -51,6 +51,7 @@ jobs:
           name: deploy firebase hosting
           command: |
             npm install
+            curl -sL https://firebase.tools | bash
             ./node_modules/firebase-tools/bin/firebase deploy --only hosting --project "${FIREBASE_PROJECT_ID}" --token "${FIREBASE_TOKEN}"
           working_directory: frontend
 
