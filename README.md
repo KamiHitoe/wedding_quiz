@@ -24,8 +24,9 @@ Firebaseでバックエンドを大幅に省略しているので3日程度で�
 
 - frontend
     - Vue.js
-- backend/infra
+- backend
     - Firestore
+- infra
     - Firebase hosting
 - DevOps
     - CircleCI
@@ -37,20 +38,22 @@ Vueコンポーネントやアセットの画像をそのままfirebaseに静的
 ### firestoreのコレクション
 DBにはユーザごとの回答、得点、正答さえあればクイズアプリの要件は満たせますのでコレクションは以下の3つしか必要ではありません。
 
-
 - answersコレクション
+
 |  フィールド  |  型  |  説明  |
 | ---- | ---- ||
 |  answerArray  |  array  | ユーザの回答を格納する配列。問題番号と配列のインデックスを合わせているので、同じ問題を複数回答されても異常は発生しません |
 |  username  |  string  | ユーザネームを格納 |
 
 - scoresコレクション
+
 |  フィールド  |  型  |  説明  |
 | ---- | ---- ||
 |  score  |  number  | ランキング用にユーザの得点を格納 |
 |  username  |  string  | ユーザネームを格納 |
 
 - correctAnswersコレクション
+
 |  フィールド  |  型  |  説明  |
 | ---- | ---- ||
 |  score  |  number  | ランキング用にユーザの得点を格納 |
@@ -75,6 +78,5 @@ DBにはユーザごとの回答、得点、正答さえあればクイズアプ
 結婚式は延期になりましたが、延期後は以下のアプリも併せて開発して結婚式の生産性を爆上げしていきたい！
 - [【 React / Firebase 】LINE Bot を使用した写真・動画共有アプリ](https://qiita.com/sho373/items/d07f543f8c3fc825f414#comment-fafab8d582a319a08a56)
 
-[github](https://github.com/KamiHitoe/wedding_quiz)にcodeをすべて公開しております。
-ご興味がある方はどうぞご覧あれ。
+
 
