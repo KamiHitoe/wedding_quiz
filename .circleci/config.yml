@@ -1,9 +1,11 @@
 
 version: 2
+# workflowに登録するjobを記述
 jobs: 
   build: 
     working_directory: ~/app
     docker:
+      # web appをnodeコンテナで生成
       - image: circleci/node:15
         environment:
           LANG: ja_JP.UTF-8
@@ -63,10 +65,10 @@ workflows:
       - build
       - deploy:
           # なぜかインデントが2レベルいる　※注意
-          # buildが成功したら実行
           requires:
+            # buildが成功したら実行
             - build
-          # master branchにpushされた時のみ実行
           filters:
             branches:
+              # master branchにpushされた時のみ実行
               only: master
