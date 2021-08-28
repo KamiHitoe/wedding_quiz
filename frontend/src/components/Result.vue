@@ -25,35 +25,41 @@ import firebase from '../firebase'
 export default {
   data() {
     return {
-      correct_answers: [2, 1, 2, 3, 3, 2, 1, 3, 2, 3],
       correct_num: 0,
+      correct_answers: [],
       db: null,
+      correct_answers_collection: null,
       answers_collection: null,
       scores_collection: null,
     }
   },
+  // 初期処理
   created() {
     this.db = firebase.firestore();
+    // firebaseコレクションと変数の紐づけ
     this.answers_collection = this.db.collection('answers');
     this.scores_collection = this.db.collection('scores');
+    this.correct_answers_collection = this.db.collection('correct_answers');
   },
   methods: {
     postScore() {
-      // this.answers_collection.where('username', '==', this.$store.state.username)
-      // .orderBy('id').get()
-      // .then(snapshot => {
-      //   snapshot.forEach(doc => {
-      //     console.log(doc.data().id);
-      //     console.log(doc.data().number);
-      //     console.log(doc.data().username);
-      //     let parse_number = parseInt(JSON.parse(JSON.stringify(doc.data().number))); 
-      //     this.answers.push(parse_number);
-      //   })
-      // })
-      this.answers_collection.add({
-        answerArray: this.$store.state.answerArray,
-        username: this.$store.state.username,
+      // firestoreから正答をcorrect_answersに格納
+      this.correct_answers_collection
+      // idを昇順にSELECT
+      .orderBy('id').get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          this.correct_answers.push(doc.data().number);
+        })
       })
+      // promissによって同期処理
+      .then(() => {
+        this.answers_collection.add({
+          answerArray: this.$store.state.answerArray,
+          username: this.$store.state.username,
+        })
+      })
+      // promissによって同期処理
       .then(() => {
         this.correct_num = 0;
         for (let i=0; i < this.correct_answers.length; i++) {
@@ -61,8 +67,9 @@ export default {
             this.correct_num += 1;
           }
         }
-        console.log(this.correct_num);
+        // console.log(this.correct_num);
       })
+      // promissによって同期処理
       .then(() => {
         this.scores_collection.add({
           score: this.correct_num,
@@ -72,8 +79,10 @@ export default {
           console.log(doc)
         })
       })
+      // scoreが格納されたら採点ボタンを削除して重複登録を防止
       let element = document.getElementById('grade-button');
       element.remove();
+      // scoreを登録する前にランキングへ遷移するのを防止
       let target = document.getElementById('target');
       target.className = 'appear';
     },

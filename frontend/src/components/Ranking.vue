@@ -4,30 +4,31 @@
       <div id="title">
         <h1>👑Ranking👑</h1>
       </div>
-      <div v-for="(userArray, i) in reMapping" :key=userArray>
+      <!-- :keyは.idをつけるなどしてprimitiveなkeyとすること -->
+      <div v-for="(userArray, i) in reMapping" :key=userArray.id>
         <div v-if="i+1==1">
-          <div v-for="user in userArray" :key=user>
+          <div v-for="user in userArray" :key=user.id>
             <div id="border1" v-if="user">
               <h2 id="rank1"><span id="rank1-grade">🥇{{i+1}}位 </span>{{user}} さん<br><span class="score">{{scoreArray[i]}}点</span></h2>
             </div>
           </div>
         </div>
         <div v-else-if="i+1==2">
-          <div v-for="user in userArray" :key=user>
+          <div v-for="user in userArray" :key=user.id>
             <div id="border2" v-if="user">
               <h2 id="rank2"><span id="rank2-grade">🥈{{i+1}}位 </span>{{user}} さん<br><span class="score">{{scoreArray[i]}}点</span></h2>
             </div>
           </div>
         </div>
         <div v-else-if="i+1==3">
-          <div v-for="user in userArray" :key=user>
+          <div v-for="user in userArray" :key=user.id>
             <div id="border3" v-if="user">
               <h2 id="rank3"><span id="rank3-grade">🥉{{i+1}}位 </span>{{user}} さん<br><span class="score">{{scoreArray[i]}}点</span></h2>
             </div>
           </div>
         </div>
         <div v-else>
-          <div v-for="user in userArray" :key=user>
+          <div v-for="user in userArray" :key=user.id>
             <div v-if="user">
               <h2>{{i+1}}位 {{user}} さん：{{scoreArray[i]}}点</h2>
             </div>
@@ -94,9 +95,6 @@ export default {
           }
         }
       })
-      console.log('reMap');
-      console.log(this.reMapping);
-      console.log(this.scoreArray);
     },
   },
 
