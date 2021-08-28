@@ -1,8 +1,14 @@
 # wedding_quiz
 
-![インフラ構成図](https://github.com/KamiHitoe/wedding_quiz/blob/master/infra.png)
+## アプリ概要
+結婚式用のクイズアプリをVue.js x Firebaseで作成しました。
+![概要](https://github.com/KamiHitoe/img/blob/master/wedding_quiz/01_main.png)
+
 
 ## 利用技術
+
+
+![インフラ構成図](https://github.com/KamiHitoe/wedding_quiz/blob/master/infra.png)
 - frontend
     - Vue.js
     - Bootstrap or tailwindcss
